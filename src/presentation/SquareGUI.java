@@ -3,6 +3,7 @@ package presentation;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class SquareGUI extends JFrame {
 
@@ -37,7 +38,6 @@ public class SquareGUI extends JFrame {
 
   private void prepareMenu() {
     JMenuBar menuBar = new JMenuBar();
-
     JMenu menu = new JMenu("File");
 
     JMenuItem nuevo = new JMenuItem("Nuevo");
@@ -45,14 +45,26 @@ public class SquareGUI extends JFrame {
     JMenuItem guardar = new JMenuItem("Salvar");
     JMenuItem salirM = new JMenuItem("Salir");
 
-    ActionListener mensajeCons = new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+    nuevo.addActionListener(e -> JOptionPane.showMessageDialog(SquareGUI.this, "En construccion"));
+
+    abrir.addActionListener(e -> {
+      JFileChooser fileChooser = new JFileChooser();
+      int option = fileChooser.showOpenDialog(SquareGUI.this);
+      if (option == JFileChooser.APPROVE_OPTION) {
+        File file = fileChooser.getSelectedFile();
         JOptionPane.showMessageDialog(SquareGUI.this, "En construccion");
       }
-    };
-    nuevo.addActionListener(mensajeCons);
-    abrir.addActionListener(mensajeCons);
-    guardar.addActionListener(mensajeCons);
+    });
+
+    guardar.addActionListener(e -> {
+      JFileChooser fileChooser = new JFileChooser();
+      int option = fileChooser.showSaveDialog(SquareGUI.this);
+      if (option == JFileChooser.APPROVE_OPTION) {
+        File file = fileChooser.getSelectedFile();
+        JOptionPane.showMessageDialog(SquareGUI.this, "En construccion");
+      }
+    });
+
     salirM.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         int confirm = JOptionPane.showConfirmDialog(
@@ -62,6 +74,7 @@ public class SquareGUI extends JFrame {
         }
       }
     });
+
     menu.add(nuevo);
     menu.addSeparator();
     menu.add(abrir);
